@@ -28,15 +28,15 @@ V.g.mapleader = " "
 local fresh_install_packer = function()
 	local packerpath = V.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 	if not V.loop.fs_stat(packerpath) then
-  	V.fn.system({
-    	"git",
-    	"clone",
-    	"--depth",
-    	"1",
-    	"https://github.com/wbthomason/packer.nvim.git",
-    	packerpath,
-  	})
-  	V.cmd [[packadd packer.nvim]]
+		V.fn.system({
+			"git",
+			"clone",
+			"--depth",
+			"1",
+			"https://github.com/wbthomason/packer.nvim.git",
+			packerpath,
+		})
+		V.cmd [[packadd packer.nvim]]
 		return true
 	end
 	return false
@@ -73,7 +73,7 @@ packer.startup(function(u)
   u {
 		'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x'
-	}
+  }
 
 	-- Markdown
 	u 'godlygeek/tabular'
@@ -99,7 +99,7 @@ packer.startup(function(u)
 	u 'folke/which-key.nvim'
 
 	if fresh_install then
-  	packer.sync()
+		packer.sync()
 	end
 end)
 
@@ -169,13 +169,13 @@ V.cmd('let g:vim_markdown_json_frontmatter = 1')
 
 V.cmd([[
 	augroup pandoc_syntax
-    	au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+			au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 	augroup END
 ]])
 
 V.cmd([[
 	augroup pandoc_syntax
-    	au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
+			au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
 	augroup END
 ]])
 
