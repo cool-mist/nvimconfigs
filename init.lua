@@ -58,7 +58,8 @@ V.cmd([[
 --------------------------
 
 local packer = require('packer')
-packer.startup(function(u)
+
+packer.startup({function(u)
   u 'wbthomason/packer.nvim'
 
   -- LSP + Autocomplete
@@ -102,7 +103,29 @@ packer.startup(function(u)
   if fresh_install then
     packer.sync()
   end
-end)
+end,
+config = {
+  max_jobs = 50,
+  git = {
+    cmd = 'git',
+    subcommands = {
+      update         = 'pull --ff-only --progress --rebase=false --force',
+      install        = 'clone --depth %i --no-single-branch --progress',
+      fetch          = 'fetch --depth 999999 --progress --force',
+      checkout       = 'checkout %s --',
+      update_branch  = 'merge --ff-only @{u}',
+      current_branch = 'branch --show-current',
+      diff           = 'log --color=never --pretty=format:FMT --no-show-signature HEAD@{1}...HEAD',
+      diff_fmt       = '%%h %%s (%%cr)',
+      get_rev        = 'rev-parse --short HEAD',
+      get_msg        = 'log --color=never --pretty=format:FMT --no-show-signature HEAD -n 1',
+      submodules     = 'submodule update --init --recursive --progress'
+    },
+    depth = 1,
+    clone_timeout = 5, -- in seconds
+    default_url_format = 'https://github.com/%s'
+  },
+}})
 
 --------------------------
 ----  Config Section -----
