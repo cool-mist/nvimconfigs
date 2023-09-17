@@ -6,20 +6,21 @@ This uses Packer as the plugin manager.
 
 # Dependencies #
 
-- neovim
-- npm
-- python
-- python-pynvim
-- pip
-- go
-- rust
 
 
 # Installation #
 
-Tested on Arch. Should probably work on most linux distros.
+## Prerequisites
 
-On Arch WSL, you would need to retry by pressing `R` on the `:PackerSync` menu few times to install all the plugins, the first time around. Check [this issue](https://github.com/wbthomason/packer.nvim/issues/456)
+- Tested on Arch. Should probably work on most linux distros.
+- On Arch WSL, you would need to retry by pressing `R` on the `:PackerSync` menu few times to install all the plugins, the first time around. Check [this issue](https://github.com/wbthomason/packer.nvim/issues/456)
+- `neovim`
+- `npm`
+- `python`
+- `python-pynvim`
+- `pip`
+- `go`
+- `rust`
 
 ```
 make install
