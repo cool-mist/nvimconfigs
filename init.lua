@@ -132,6 +132,9 @@ config = {
 --- 5 --- Plugins conf----
 --------------------------
 
+local telescope = require('telescope')
+telescope.setup();
+
 local lsp = require('lsp-zero').preset({})
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({buffer = bufnr})
@@ -143,6 +146,7 @@ lsp.ensure_installed({
   'eslint',
   'rust_analyzer'
 })
+
 lsp.setup();
 
 local cmp = require('cmp')
@@ -167,10 +171,6 @@ cmp.setup {
       completeopt = 'menu,menuone,noinsert'
     }
 }
-
-
-local telescope = require('telescope')
-telescope.setup();
 
 local lualine = require('lualine')
 lualine.setup({
@@ -202,9 +202,6 @@ V.cmd([[
       au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
   augroup END
 ]])
-
-local glow = require('glow')
-glow.setup()
 
 --------------------------
 ----  Config Section -----
