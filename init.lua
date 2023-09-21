@@ -84,6 +84,7 @@ packer.startup({function(u)
   u 'elzr/vim-json'
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
+  u 'itchyny/calendar.vim'
 
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
@@ -253,6 +254,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap('n', '<leader>tf', ':TableFormat<cr>', opts)
 keymap('n', '<leader>tc', ':Toc<cr>', opts)
 keymap('n', '<leader>di', ":pu='{'..strftime('%c')..'}'<cr>", opts)
+keymap('n', '<leader>cs', ":Calendar -view=year -height=12 -split=vertical -position=topright<cr>", opts)
 keymap('n', '<leader>o', 'o<esc>i', opts)
 keymap('n', '<leader>fy', ':let @+=@%<cr>', opts)
 keymap('n', 'gn', 'yi[:e <C-r>*<cr>', opts)
