@@ -12,6 +12,7 @@ O.shiftwidth=2
 O.expandtab=true
 O.preserveindent=true
 O.termguicolors=true
+O.clipboard='unnamedplus'
 V.cmd("colorscheme habamax")
 
 --------------------------
@@ -69,6 +70,7 @@ packer.startup({function(u)
   u 'hrsh7th/nvim-cmp'
   u 'hrsh7th/cmp-nvim-lsp'
   u 'hrsh7th/cmp-buffer'
+  u 'hrsh7th/cmp-path'
   u 'L3MON4D3/LuaSnip'
   u 'Sirver/ultisnips'
   u 'honza/vim-snippets'
@@ -165,7 +167,8 @@ cmp.setup {
     },
     sources = {
         {name = 'buffer'},
-        {name = 'nvim_lsp'}
+        {name = 'nvim_lsp'},
+        {name = 'path'}
     },
     completion = {
       completeopt = 'menu,menuone,noinsert'
@@ -208,17 +211,52 @@ V.cmd([[
 --- x --- Keybindings ----
 --------------------------
 
-V.keymap.set('n', '<leader>w', ':w<cr>')
-V.keymap.set('n', '<leader>q', ':q<cr>')
-V.keymap.set('n', '<leader>Q', ':qa!<cr>')
-V.keymap.set('n', '<leader>e', ':Neotree toggle <cr>')
-V.keymap.set('n', '<S-u>', ':red<cr>')
-V.keymap.set('n', '<leader>;', ':nohl<cr>')
-V.keymap.set('n', '<leader>fb', ':Telescope buffers<cr>')
-V.keymap.set('n', '<leader>fo', ':Telescope find_files<cr>')
-V.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
-V.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>')
-V.keymap.set('n', '<leader>fr', ':Telescope oldfiles<cr>')
-V.keymap.set('n', '<leader>ns', '/Config Section<cr>')
-V.keymap.set('n', '<leader>o', 'o<esc>i')
-V.keymap.set('n', '<leader>fy', 'let @+=@%')
+local keymap = V.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+keymap('n', '<leader>w', ':w<cr>', opts)
+keymap('n', '<leader>q', ':q<cr>', opts)
+keymap('n', '<leader>Q', ':qa!<cr>', opts)
+
+-- Neotree
+keymap('n', '<leader>e', ':Neotree toggle <cr>', opts)
+
+-- Telescope
+keymap('n', '<leader>fb', ':Telescope buffers<cr>', opts)
+keymap('n', '<leader>fo', ':Telescope find_files<cr>', opts)
+keymap('n', '<leader>fg', ':Telescope live_grep<cr>', opts)
+keymap('n', '<leader>fh', ':Telescope help_tags<cr>', opts)
+keymap('n', '<leader>fr', ':Telescope oldfiles<cr>', opts)
+
+-- Navidate windows
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+
+-- Navigate buffers
+keymap("n", "<S-l>", ":bnext<CR>", opts)
+keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+keymap("v", "p", '"_dP', opts)
+
+-- Move text up and down
+keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
+keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+
+-- Notes
+keymap('n', '<leader>tf', ':TableFormat<cr>', opts)
+keymap('n', '<leader>o', 'o<esc>i', opts)
+keymap('n', '<leader>fy', ':let @+=@%<cr>', opts)
+keymap('n', 'gn', 'yi[:e <C-r>*<cr>', opts)
+keymap('n', 'gm', ':e main.md<cr>', opts)
+
+-- Misc
+keymap('n', '<S-u>', ':red<cr>', opts)
+keymap('n', '<leader>;', ':nohl<cr>', opts)
+keymap('n', '<leader>ns', '/Config Section<cr>', opts)
