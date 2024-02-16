@@ -83,6 +83,7 @@ packer.startup({function(u)
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
   u ({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() V.g.mkdp_filetypes = { "markdown.pandoc" } end, ft = { "markdown" }, })
+
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
   u 'nvim-tree/nvim-web-devicons'
@@ -202,6 +203,9 @@ V.cmd([[
       au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
   augroup END
 ]])
+
+local glow = require('glow')
+glow.setup()
 
 --------------------------
 ----  Config Section -----
