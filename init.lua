@@ -252,6 +252,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- Notes
 keymap('n', '<leader>tf', ':TableFormat<cr>', opts)
 keymap('n', '<leader>tc', ':Toc<cr>', opts)
+keymap('n', '<leader>di', ":pu='{'..strftime('%c')..'}'<cr>", opts)
 keymap('n', '<leader>o', 'o<esc>i', opts)
 keymap('n', '<leader>fy', ':let @+=@%<cr>', opts)
 keymap('n', 'gn', 'yi[:e <C-r>*<cr>', opts)
