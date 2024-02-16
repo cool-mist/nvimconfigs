@@ -82,6 +82,7 @@ packer.startup({function(u)
   u 'elzr/vim-json'
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
+  u 'mickael-menu/zk-nvim'
 
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
@@ -179,6 +180,24 @@ lualine.setup({
   }
 });
 
+local zk = require('zk')
+zk.setup({
+  picker = "fzf",
+
+  lsp = {
+    config = {
+      cmd = { "zk", "lsp" },
+      name = "zk",
+    },
+
+    -- automatically attach buffers in a zk notebook that match the given filetypes
+    auto_attach = {
+      enabled = true,
+      filetypes = { "markdown", "markdown.pandoc" },
+    },
+  },
+})
+
 local whichkey = require('which-key')
 whichkey.setup()
 
@@ -221,3 +240,4 @@ V.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>')
 V.keymap.set('n', '<leader>fr', ':Telescope oldfiles<cr>')
 V.keymap.set('n', '<leader>ns', '/Config Section<cr>')
 V.keymap.set('n', '<leader>o', 'o<esc>i')
+V.keymap.set('n', '<leader>fy', 'let @+=@%')
