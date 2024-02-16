@@ -11,6 +11,7 @@ O.tabstop=2
 O.shiftwidth=2
 O.expandtab=true
 O.preserveindent=true
+O.fillchars = { eob = " " }
 O.termguicolors=true
 
 -- If running on WSL + Arch, uncomment this for faster startup
@@ -105,6 +106,8 @@ packer.startup({function(u)
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
   u 'itchyny/calendar.vim'
+  u 'junegunn/goyo.vim'
+  u 'junegunn/limelight.vim'
 
   -- Terminal
   u 'akinsho/toggleterm.nvim'
@@ -123,7 +126,8 @@ packer.startup({function(u)
   }
 
   -- Others
-  u 'nvim-lualine/lualine.nvim'
+  -- u 'nvim-lualine/lualine.nvim'
+  u 'itchyny/lightline.vim'
   u 'folke/which-key.nvim'
 
   if fresh_install then
@@ -167,7 +171,6 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.ensure_installed({
-  'lua_ls',
   'tsserver',
   'eslint',
   'rust_analyzer',
@@ -198,13 +201,6 @@ cmp.setup {
       completeopt = 'menu,menuone,noinsert'
     }
 }
-
-local lualine = require('lualine')
-lualine.setup({
-  options = {
-    theme = 'nord'
-  }
-});
 
 local whichkey = require('which-key')
 whichkey.setup()
@@ -288,15 +284,15 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+keymap("x", "J", ":move '>+1<cr>gv-gv", opts)
+keymap("x", "K", ":move '<-2<cr>gv-gv", opts)
+keymap("x", "<A-j>", ":move '>+1<cr>gv-gv", opts)
+keymap("x", "<A-k>", ":move '<-2<cr>gv-gv", opts)
 
 -- terminal
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
-keymap("n", "tt", ":ToggleTerm<CR>", opts)
-keymap("x", "tt", ":ToggleTerm<CR>", opts)
+keymap("n", "tt", ":ToggleTerm<cr>", opts)
+keymap("x", "tt", ":ToggleTerm<cr>", opts)
 
 
 -- Notes
@@ -308,6 +304,10 @@ keymap('n', '<leader>o', 'o<esc>i', opts)
 keymap('n', '<leader>fy', ':let @+=@%<cr>', opts)
 keymap('n', 'gn', 'yi[:e <C-r>*<cr>', opts)
 keymap('n', 'gm', ':e main.md<cr>', opts)
+
+-- Present
+keymap('n', '<leader>g', ':Goyo<cr>', opts)
+keymap('n', '<leader>l', ':Limelight!! 0.9<cr>', opts)
 
 -- Neovide
 if V.g.neovide then
