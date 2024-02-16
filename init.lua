@@ -12,6 +12,19 @@ O.shiftwidth=2
 O.expandtab=true
 O.preserveindent=true
 O.termguicolors=true
+-- If running on WSL + Arch, uncomment this for faster startup
+-- V.g.clipboard = {
+--  name = 'win32yank',
+--  copy = {
+--     ["+"] = 'win32yank.exe -i --crlf',
+--     ["*"] = 'win32yank.exe -i --crlf',
+--   },
+--  paste = {
+--     ["+"] = 'win32yank.exe -o --lf',
+--     ["*"] = 'win32yank.exe -o --lf',
+--  },
+--  cache_enabled = 0,
+--}
 O.clipboard='unnamedplus'
 V.cmd("colorscheme habamax")
 
