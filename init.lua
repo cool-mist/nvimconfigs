@@ -82,7 +82,6 @@ packer.startup({function(u)
   u 'elzr/vim-json'
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
-  u ({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() V.g.mkdp_filetypes = { "markdown.pandoc" } end, ft = { "markdown" }, })
 
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
@@ -215,7 +214,7 @@ glow.setup()
 V.keymap.set('n', '<leader>w', ':w<cr>')
 V.keymap.set('n', '<leader>q', ':q<cr>')
 V.keymap.set('n', '<leader>Q', ':qa!<cr>')
-V.keymap.set('n', '<leader>e', ':Neotree toggle float <cr>')
+V.keymap.set('n', '<leader>e', ':Neotree toggle <cr>')
 V.keymap.set('n', '<S-u>', ':red<cr>')
 V.keymap.set('n', '<leader>;', ':nohl<cr>')
 V.keymap.set('n', '<leader>fb', ':Telescope buffers<cr>')

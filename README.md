@@ -14,6 +14,7 @@ This uses Packer as the plugin manager.
 - `pip`
 - `go`
 - `rust`
+- `ripgrep` - for fuzzy searching
 
 # Installation #
 
