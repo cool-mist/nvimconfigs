@@ -12,7 +12,9 @@ O.shiftwidth=2
 O.expandtab=true
 O.preserveindent=true
 O.termguicolors=true
+
 -- If running on WSL + Arch, uncomment this for faster startup
+-- before setting the clipbard to unnamedplus
 -- V.g.clipboard = {
 --  name = 'win32yank',
 --  copy = {
@@ -26,7 +28,8 @@ O.termguicolors=true
 --  cache_enabled = 0,
 --}
 O.clipboard='unnamedplus'
-V.cmd("colorscheme habamax")
+
+V.cmd("colorscheme lunaperche")
 
 --------------------------
 ----  Config Section -----
@@ -86,11 +89,15 @@ packer.startup({function(u)
   u 'hrsh7th/cmp-path'
   u 'L3MON4D3/LuaSnip'
   u 'Sirver/ultisnips'
+  u 'simrat39/rust-tools.nvim'
   u 'honza/vim-snippets'
   u {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x'
   }
+
+  -- Debugging
+  u 'puremourning/vimspector'
 
   -- Markdown
   u 'godlygeek/tabular'
@@ -98,6 +105,9 @@ packer.startup({function(u)
   u 'preservim/vim-markdown'
   u 'vim-pandoc/vim-pandoc-syntax'
   u 'itchyny/calendar.vim'
+
+  -- Terminal
+  u 'akinsho/toggleterm.nvim'
 
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
@@ -160,7 +170,7 @@ lsp.ensure_installed({
   'lua_ls',
   'tsserver',
   'eslint',
-  'rust_analyzer'
+  'rust_analyzer',
 })
 
 lsp.setup();
@@ -199,6 +209,11 @@ lualine.setup({
 local whichkey = require('which-key')
 whichkey.setup()
 
+local toggleterm = require('toggleterm')
+toggleterm.setup({
+  direction = 'float',
+})
+
 -- vim-markdown
 V.cmd('let g:vim_markdown_folding_disabled = 1')
 V.cmd('let g:vim_markdown_conceal = 0')
@@ -219,6 +234,21 @@ V.cmd([[
       au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
   augroup END
 ]])
+
+
+--------------------------
+----  Config Section -----
+--- x --- Neovide --------
+--------------------------
+
+if V.g.neovide then
+    -- V.g.neovide_fullscreen = true
+    V.g.neovide_cursor_animation_length = 0.05
+    V.g.neovide_transparency = 0.85
+    V.g.neovide_refresh_rate_idle = 5
+    V.g.neovide_cursor_trail_size = 0.2
+    V.g.neovide_cursor_vfx_mode = "railgun"
+end
 
 --------------------------
 ----  Config Section -----
@@ -263,6 +293,12 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+-- terminal
+keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+keymap("n", "tt", ":ToggleTerm<CR>", opts)
+keymap("x", "tt", ":ToggleTerm<CR>", opts)
+
+
 -- Notes
 keymap('n', '<leader>tf', ':TableFormat<cr>', opts)
 keymap('n', '<leader>tc', ':Toc<cr>', opts)
@@ -272,6 +308,11 @@ keymap('n', '<leader>o', 'o<esc>i', opts)
 keymap('n', '<leader>fy', ':let @+=@%<cr>', opts)
 keymap('n', 'gn', 'yi[:e <C-r>*<cr>', opts)
 keymap('n', 'gm', ':e main.md<cr>', opts)
+
+-- Neovide
+if V.g.neovide then
+  keymap('n', '<leader>ff', ':lua V.g.neovide_fullscreen = true<cr>', opts)
+end
 
 -- Misc
 keymap('n', '<S-u>', ':red<cr>', opts)
