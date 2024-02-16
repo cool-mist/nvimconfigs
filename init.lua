@@ -9,6 +9,7 @@ O.number=true
 O.relativenumber=true
 O.tabstop=2
 O.shiftwidth=2
+O.expandtab=true
 O.preserveindent=true
 O.termguicolors=true
 V.cmd("colorscheme habamax")
@@ -26,20 +27,20 @@ V.g.mapleader = " "
 --- 3 --- Packer conf ----
 --------------------------
 local fresh_install_packer = function()
-	local packerpath = V.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if not V.loop.fs_stat(packerpath) then
-		V.fn.system({
-			"git",
-			"clone",
-			"--depth",
-			"1",
-			"https://github.com/wbthomason/packer.nvim.git",
-			packerpath,
-		})
-		V.cmd [[packadd packer.nvim]]
-		return true
-	end
-	return false
+  local packerpath = V.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if not V.loop.fs_stat(packerpath) then
+    V.fn.system({
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "https://github.com/wbthomason/packer.nvim.git",
+      packerpath,
+    })
+    V.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
 
 local fresh_install = fresh_install_packer();
@@ -60,47 +61,47 @@ local packer = require('packer')
 packer.startup(function(u)
   u 'wbthomason/packer.nvim'
 
-	-- LSP + Autocomplete
-	u 'neovim/nvim-lspconfig'
+  -- LSP + Autocomplete
+  u 'neovim/nvim-lspconfig'
   u 'williamboman/mason.nvim'
   u 'williamboman/mason-lspconfig.nvim'
   u 'hrsh7th/nvim-cmp'
   u 'hrsh7th/cmp-nvim-lsp'
   u 'hrsh7th/cmp-buffer'
   u 'L3MON4D3/LuaSnip'
-	u 'Sirver/ultisnips'
-	u 'honza/vim-snippets'
+  u 'Sirver/ultisnips'
+  u 'honza/vim-snippets'
   u {
-		'VonHeikemen/lsp-zero.nvim',
+    'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x'
   }
 
-	-- Markdown
-	u 'godlygeek/tabular'
-	u 'elzr/vim-json'
-	u 'preservim/vim-markdown'
-	u 'vim-pandoc/vim-pandoc-syntax'
-	u ({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() V.g.mkdp_filetypes = { "markdown.pandoc" } end, ft = { "markdown" }, })
-	-- File tree, telescope
-	u 'nvim-lua/plenary.nvim'
-	u 'nvim-tree/nvim-web-devicons'
-	u 'MunifTanjim/nui.nvim'
-	u {
-		'nvim-neo-tree/neo-tree.nvim',
-		branch = 'v3.x'
-	}
-	u {
-		'nvim-telescope/telescope.nvim',
-		branch = '0.1.x'
-	}
+  -- Markdown
+  u 'godlygeek/tabular'
+  u 'elzr/vim-json'
+  u 'preservim/vim-markdown'
+  u 'vim-pandoc/vim-pandoc-syntax'
+  u ({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() V.g.mkdp_filetypes = { "markdown.pandoc" } end, ft = { "markdown" }, })
+  -- File tree, telescope
+  u 'nvim-lua/plenary.nvim'
+  u 'nvim-tree/nvim-web-devicons'
+  u 'MunifTanjim/nui.nvim'
+  u {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x'
+  }
+  u {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x'
+  }
 
-	-- Others
-	u 'nvim-lualine/lualine.nvim'
-	u 'folke/which-key.nvim'
+  -- Others
+  u 'nvim-lualine/lualine.nvim'
+  u 'folke/which-key.nvim'
 
-	if fresh_install then
-		packer.sync()
-	end
+  if fresh_install then
+    packer.sync()
+  end
 end)
 
 --------------------------
@@ -114,7 +115,7 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.ensure_installed({
-	'lua_ls',
+  'lua_ls',
   'tsserver',
   'eslint',
   'rust_analyzer'
@@ -137,11 +138,11 @@ cmp.setup {
     },
     sources = {
         {name = 'buffer'},
-				{name = 'nvim_lsp'}
+        {name = 'nvim_lsp'}
     },
     completion = {
-			completeopt = 'menu,menuone,noinsert'
-		}
+      completeopt = 'menu,menuone,noinsert'
+    }
 }
 
 
@@ -150,9 +151,9 @@ telescope.setup();
 
 local lualine = require('lualine')
 lualine.setup({
-	options = {
-		theme = 'nord'
-	}
+  options = {
+    theme = 'nord'
+  }
 });
 
 local whichkey = require('which-key')
@@ -168,15 +169,15 @@ V.cmd('let g:vim_markdown_toml_frontmatter = 1')
 V.cmd('let g:vim_markdown_json_frontmatter = 1')
 
 V.cmd([[
-	augroup pandoc_syntax
-			au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-	augroup END
+  augroup pandoc_syntax
+      au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+  augroup END
 ]])
 
 V.cmd([[
-	augroup pandoc_syntax
-			au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
-	augroup END
+  augroup pandoc_syntax
+      au! BufNewFile,BufFilePre,BufRead *.markdown set filetype=markdown.pandoc
+  augroup END
 ]])
 
 --------------------------
