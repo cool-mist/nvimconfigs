@@ -5,14 +5,38 @@ V = vim
 --- 1 --- Options --------
 --------------------------
 O = V.opt
+
+-- Show numebers. Relative numbers are useful if you want to jump up and down
+-- using the <num>j or <num>k commands. But I prefer to use the <num>G command
 O.number=true
-O.relativenumber=true
+O.relativenumber=false
+O.cursorline=true
+
+-- Pretty much the standard now-a-days.
 O.tabstop=2
 O.shiftwidth=2
 O.expandtab=true
 O.preserveindent=true
-O.fillchars = { eob = " " }
+
 O.termguicolors=true
+O.showmode=false
+O.signcolumn="yes"
+
+-- Useful to search this way
+O.ignorecase=true
+O.smartcase=true
+
+-- Maintain a history of undos so that I can undo even after restart
+O.undofile=true
+
+O.updatetime=300
+O.timeoutlen=500
+
+-- Keep atleast 15 lines at the bottom, don't scroll beyond
+O.scrolloff=15
+
+O.list = true
+O.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- If running on WSL + Arch, uncomment this for faster startup
 -- before setting the clipbard to unnamedplus
@@ -29,7 +53,6 @@ O.termguicolors=true
 --  cache_enabled = 0,
 --}
 O.clipboard='unnamedplus'
-
 
 --------------------------
 ----  Config Section -----
@@ -84,7 +107,10 @@ packer.startup({function(u)
     'catppuccin/nvim', as = 'catppuccin'
   }
 
-  -- LSP + Autocomplete
+  -- AI
+  u 'github/copilot.vim'
+
+  -- Dev
   u 'williamboman/mason.nvim'
   u 'williamboman/mason-lspconfig.nvim'
   u 'neovim/nvim-lspconfig'
@@ -92,6 +118,11 @@ packer.startup({function(u)
   u 'hrsh7th/cmp-nvim-lsp'
   u 'hrsh7th/cmp-buffer'
   u 'hrsh7th/cmp-path'
+  u 'numToStr/Comment.nvim'
+  u {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+  }
 
   -- Markdown
   u 'godlygeek/tabular'
@@ -99,9 +130,6 @@ packer.startup({function(u)
   u 'vim-pandoc/vim-pandoc-syntax'
   u 'junegunn/goyo.vim'
   u 'junegunn/limelight.vim'
-
-  -- Terminal
-  u 'akinsho/toggleterm.nvim'
 
   -- File tree, telescope
   u 'nvim-lua/plenary.nvim'
@@ -117,7 +145,6 @@ packer.startup({function(u)
   }
 
   -- Others
-  -- u 'nvim-lualine/lualine.nvim'
   u 'itchyny/lightline.vim'
   u 'folke/which-key.nvim'
 
@@ -132,7 +159,7 @@ config = {
     subcommands = {
       update         = 'pull --ff-only --progress --rebase=false --force',
       install        = 'clone --depth %i --no-single-branch --progress',
-      fetch          = 'fetch --depth 999999 --progress --force',
+      fetch          = 'fetch --depth 1 --progress --force',
       checkout       = 'checkout %s --',
       update_branch  = 'merge --ff-only @{u}',
       current_branch = 'branch --show-current',
@@ -153,8 +180,7 @@ config = {
 --- 5 --- Plugins conf----
 --------------------------
 
-V.cmd("colorscheme catppuccin")
-V.cmd("let g:lightline = {'colorscheme': 'catppuccin'}")
+V.cmd("colorscheme catppuccin-frappe")
 
 require('telescope').setup()
 
@@ -218,11 +244,6 @@ cmp.setup {
 local whichkey = require('which-key')
 whichkey.setup()
 
-local toggleterm = require('toggleterm')
-toggleterm.setup({
-  direction = 'float',
-})
-
 -- vim-markdown
 V.cmd('let g:vim_markdown_folding_disabled = 1')
 V.cmd('let g:vim_markdown_conceal = 0')
@@ -244,6 +265,14 @@ V.cmd([[
   augroup END
 ]])
 
+require('Comment').setup()
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { 'bash', 'c', 'html', 'html', 'markdown', 'vim', 'vimdoc', 'rust' },
+  auto_install = true,
+  highlight = { enable = true },
+  indent = { enable = true },
+}
 
 --------------------------
 ----  Config Section -----
@@ -265,6 +294,7 @@ end
 --------------------------
 
 local keymap = V.api.nvim_set_keymap
+local lua_keymap = V.keymap
 local opts = { noremap = true, silent = true }
 
 keymap('n', '<leader>w', ':w<cr>', opts)
@@ -320,6 +350,12 @@ keymap('n', 'gm', ':e main.md<cr>', opts)
 -- Present
 keymap('n', '<leader>g', ':Goyo<cr>', opts)
 keymap('n', '<leader>l', ':Limelight!! 0.9<cr>', opts)
+
+-- Diagnostics
+lua_keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+lua_keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+lua_keymap.set('n', '<leader>ed', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+lua_keymap.set('n', '<leader>fd', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Neovide
 if V.g.neovide then
