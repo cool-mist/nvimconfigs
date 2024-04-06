@@ -189,7 +189,7 @@ lazy.setup({
     }
   },
 
-  -- Nvim-notify will be plugged into the default vim notify system for a 
+  -- Nvim-notify will be plugged into the default vim notify system for a
   -- better notification box
   {
     "rcarriga/nvim-notify",
@@ -464,6 +464,10 @@ lazy.setup({
           V.keymap.set('n', '<leader>fe', V.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
           V.keymap.set('n', '<leader>fd', V.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
           V.keymap.set('n', '<leader>fe', V.diagnostic.open_float, { desc = 'Open diagnostic message on the line' })
+          -- Define some keybinding to build the current solution
+          V.keymap.set('n', '<leader>dtb', function()
+            V.cmd('!dotnet build')
+          end, { silent = true })
         end,
       })
     end,
@@ -603,7 +607,7 @@ lazy.setup({
         }
       }
 
-      -- Below configuration tells how to launch a debugging interactive session for a C# 
+      -- Below configuration tells how to launch a debugging interactive session for a C#
       -- application when using the netcoredbg adapeter.
       dap.configurations.cs = {
         {

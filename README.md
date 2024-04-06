@@ -1,12 +1,12 @@
 # Nvimconfigs #
 
-My neovim settings. Contrary to popular opinion of breaking down your configs, this configuration is a single file because why not!! It is becoming very difficult to split them anyways with plugin dependencies on other settings, plugins defining keybinds in their setup and so on.
+My neovim settings. Contrary to popular opinion of breaking down your configs, this configuration is a single file because why not!! It is very difficult to split them anyways with plugin dependencies on other plugins, plugins defining keybinds in their setup and so on.
 
 This uses Lazy as the plugin manager.
 
 # Prerequisites #
 
-- Tested on Arch and Windows native. Should probably work on most linux distros.
+- Tested on Arch and Windows native. Should probably work on both linux and windows.
 - `neovim`
 - `npm`
 - `python`
@@ -15,19 +15,17 @@ This uses Lazy as the plugin manager.
 - `go`
 - `rust`
 - `ripgrep` - for fuzzy searching
-- `fzf` - for fuzzy searching
-- `zk` - for notetaking
 
 # Installation #
 
 - `make install` if on linux.
+- Otherwise, follow the manual process below
 
 ## Manually ##
 
 Above command will take a backup of your current vim settings in `~/.config/nvim/init.lua` and installs the configs from this project. Therefore, to install manually, you can
 
-- Download and place this manually as well in that location
-- Download it elsewhere and create a symlink to this file
+- Download and place this manually in that location. On windows, it is `$env:LocalAppData\nvim\init.lua`. On Linux, it is `~/.config/nvim/init.lua`.
 
 # Post Install #
 
