@@ -2,11 +2,11 @@
 
 My neovim settings. Contrary to popular opinion of breaking down your configs, this configuration is a single file because why not!! It is becoming very difficult to split them anyways with plugin dependencies on other settings, plugins defining keybinds in their setup and so on.
 
-This uses Packer as the plugin manager.
+This uses Lazy as the plugin manager.
 
 # Prerequisites #
 
-- Tested on Arch and Arch WSL. Should probably work on most linux distros.
+- Tested on Arch and Windows native. Should probably work on most linux distros.
 - `neovim`
 - `npm`
 - `python`
@@ -20,7 +20,7 @@ This uses Packer as the plugin manager.
 
 # Installation #
 
-- `make install`
+- `make install` if on linux.
 
 ## Manually ##
 
@@ -31,15 +31,9 @@ Above command will take a backup of your current vim settings in `~/.config/nvim
 
 # Post Install #
 
-- Open `init.lua` and run `:PackerSync`.
-
-## Arch on WSL fixes ##
-
-- On Arch WSL, you would need to retry by pressing `R` on the `:PackerSync` menu few times to install all the plugins, the first time around. Check [this issue](https://github.com/wbthomason/packer.nvim/issues/456)
-- On Arch WSL, you would need to uncomment the clipboard settings present in the `init.lua` for faster startup times.
+- Open `init.lua`. Lazy will take care of installing everything that is required. You might need to manually install the netcoredbg for debugging C#. Check the comments in the init.lua for more guidance.
 
 # Updating #
 
-- Periodically run `git pull`, open `init.lua` and run `:PackerSync`
-- TODO: AUR integration
+- Periodically run `git pull`, open `init.lua`, run `:Lazy` and `<Shift> + s` to update the plugins.
 
