@@ -247,14 +247,11 @@ lazy.setup({
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local harpoon = require("harpoon")
-      harpoon.setup({})
-
-      local opts = { noremap = true, silent = true }
-      V.keymap.set('n', '<leader>hh', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
-      V.keymap.set('n', '<leader>ha', function() harpoon:list():append() end, opts)
-    end
+    config = true,
+    keys = {
+      { '<leader>hh', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "[H]arpoon [H]ome" },
+      { '<leader>ha', function() require("harpoon"):list():append() end, desc = "[H]arpoon [A]ppend" },
+    },
   },
 
   ---------------
