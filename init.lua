@@ -33,7 +33,7 @@ O.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 if OS == "win" then
   -- The newer pwsh is faster, but this is required for some legacy functionality
   -- such as [G]o [T]eams below.
-  O.shell = "powershell" -- or the newer pwsh
+  O.shell = "powershell" -- powershell = NET Framework, pwsh = .NET Core
   O.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy Bypass -Command"
   O.shellxquote = ''
 end
@@ -406,7 +406,7 @@ lazy.setup({
         ["textDocument/hover"] = V.lsp.with(V.lsp.handlers.hover, { border = border }),
         ["textDocument/signatureHelp"] = V.lsp.with(V.lsp.handlers.signature_help, { border = border }),
       }
-      require("lspconfig").rust_analyzer.setup { handlers = handlers }
+      require("lspconfig").rust_analyzer.setup({ handlers = handlers })
 
       -- C# --
       local omnisharp_extended = require("omnisharp_extended") -- decompilation support
@@ -418,16 +418,16 @@ lazy.setup({
         ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
       }
 
-      require("lspconfig").omnisharp.setup {
+      require("lspconfig").omnisharp.setup ({
         handlers = omnisharp_handlers,
         enable_editorconfig_support = true,
         enable_ms_build_load_projects_on_demand = false,
         enable_roslyn_analyzers = true,
         organize_imports_on_format = true,
-        enable_import_completion = false,
+        enable_import_completion = true,
         sdk_include_prereleases = true,
         analyze_open_documents_only = true,
-      }
+      })
 
       -- Add default LSP keybindings
       V.api.nvim_create_autocmd('LspAttach', {
@@ -475,15 +475,15 @@ lazy.setup({
         -- This plugin provides a way to configure which LSP servers to install
         "williamboman/mason-lspconfig.nvim",
         config = function()
-          require('mason-lspconfig').setup {
+          require('mason-lspconfig').setup({
             ensure_installed = {
               "lua_ls",
               "powershell_es",
               "rust_analyzer",
-              "omnisharp",
+              "omnisharp@1.39.8", -- The last known good version
               -- "netcoredbg", Install this manually, this is DAP, not LSP
             }
-          }
+          })
         end,
         dependencies = {
           -- This plugin provides a way to install LSP and DAP servers
