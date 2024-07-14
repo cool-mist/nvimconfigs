@@ -250,7 +250,7 @@ lazy.setup({
     config = true,
     keys = {
       { '<leader>hh', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "[H]arpoon [H]ome" },
-      { '<leader>ha', function() require("harpoon"):list():append() end, desc = "[H]arpoon [A]ppend" },
+      { '<leader>ha', function() require("harpoon"):list():add() end, desc = "[H]arpoon [A]ppend" },
     },
   },
 
@@ -480,7 +480,8 @@ lazy.setup({
               "lua_ls",
               "powershell_es",
               "rust_analyzer",
-              "omnisharp@1.39.8", -- The last known good version
+              "omnisharp",
+              -- "omnisharp@1.39.8", -- The last known good version
               -- "netcoredbg", Install this manually, this is DAP, not LSP
             }
           })
