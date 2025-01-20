@@ -81,64 +81,18 @@ lazy.setup({
     -------------
     -- Colors  --
     -------------
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
     priority = 1000,
     config = function()
-      require('catppuccin').setup({
-        flavour = "frappe", -- latte, frappe, macchiato, mocha
-        background = {      -- :h background
-          light = "frappe",
-          dark = "mocha",
-        },
-        transparent_background = true, -- disables setting the background color.
-        show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
-        term_colors = false,           -- sets terminal colors (e.g. `g:terminal_color_0`)
-        dim_inactive = {
-          enabled = false,             -- dims the background color of inactive window
-          shade = "dark",
-          percentage = 0.15,           -- percentage of the shade to apply to the inactive window
-        },
-        no_italic = false,             -- Force no italic
-        no_bold = false,               -- Force no bold
-        no_underline = false,          -- Force no underline
-        styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
-          comments = { "bold" },       -- Change the style of comments
-          conditionals = {},
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-          operators = {},
-          -- miscs = {}, -- Uncomment to turn off hard-coded styles
-        },
-        color_overrides = {},
-        custom_highlights = {},
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          treesitter = true,
-          notify = false,
-          mini = {
-            enabled = true,
-            indentscope_color = "",
-          },
-          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-        },
-      })
-      V.cmd([[colorscheme catppuccin-frappe]])
+      require('nordic').load()
+      V.cmd([[colorscheme nordic]])
     end,
   },
   {
     'nvim-lualine/lualine.nvim',
     opts = {
-      theme = "catppuccin-frappe"
+      theme = "nordic"
     },
   },
 
@@ -249,8 +203,18 @@ lazy.setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
     keys = {
-      { '<leader>hh', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "[H]arpoon [H]ome" },
-      { '<leader>ha', function() require("harpoon"):list():add() end, desc = "[H]arpoon [A]ppend" },
+      {
+        '<leader>hh',
+        function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end,
+        desc =
+        "[H]arpoon [H]ome"
+      },
+      {
+        '<leader>ha',
+        function() require("harpoon"):list():append() end,
+        desc =
+        "[H]arpoon [A]ppend"
+      },
     },
   },
 
@@ -418,7 +382,7 @@ lazy.setup({
         ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
       }
 
-      require("lspconfig").omnisharp.setup ({
+      require("lspconfig").omnisharp.setup({
         handlers = omnisharp_handlers,
         enable_editorconfig_support = true,
         enable_ms_build_load_projects_on_demand = false,
@@ -682,7 +646,10 @@ keymap("x", "<A-k>", ":move '<-2<cr>gv-gv", opts)
 
 -- Misc
 keymap('n', '<S-u>', ':red<cr>', opts)
-keymap('n', '<ESC>', '<cmd>nohlsearch<cr>', {})
+keymap('n', '<ESC>', '<cmd>nohlsearch<cr>', opts)
+
+-- Run rust programs
+keymap('n', '<leader>rr', ':!cargo run<cr>', opts)
 
 ----------
 -- Misc --
