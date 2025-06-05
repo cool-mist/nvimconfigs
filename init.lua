@@ -160,7 +160,7 @@ lazy.setup({
     config = function()
       require('notify').setup({
         stages = "static",
-        timeout = 3000,
+        timeout = 500,
         max_height = function()
           return math.floor(V.o.lines * 0.75)
         end,
@@ -211,7 +211,7 @@ lazy.setup({
       },
       {
         '<leader>ha',
-        function() require("harpoon"):list():append() end,
+        function() require("harpoon"):list():add() end,
         desc =
         "[H]arpoon [A]ppend"
       },
@@ -607,6 +607,33 @@ lazy.setup({
       { '<leader>dl', '<cmd>lua require("dap").run_last()<cr>',          desc = "Run Last" },
     }
 
+  },
+
+  -- Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = 'master',
+    lazy = false,
+    build = ":TSUpdate",
+    opts_extend = { "ensure_installed" },
+    opts = {
+      ensure_installed = {
+        "rust",
+        "lua",
+        "vim",
+        "vimdoc",
+        "ruby",
+        "markdown",
+        "bash",
+        "c_sharp",
+        "ruby",
+        "html",
+        "yaml",
+        "text",
+        "gitignore",
+        "markdown_inline"
+      }
+    }
   },
 
   -- Shows a popups with the keybindings that are available after a small delay
