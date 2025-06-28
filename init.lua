@@ -631,7 +631,16 @@ lazy.setup({
         "yaml",
         "text",
         "gitignore",
-        "markdown_inline"
+        "markdown_inline",
+        "json",
+        "toml",
+        "xml",
+        "gitcommit",
+        "make",
+        "html",
+        "scss",
+        "yaml",
+        "git_config"
       }
     }
   },
