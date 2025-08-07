@@ -81,12 +81,11 @@ lazy.setup({
     -------------
     -- Colors  --
     -------------
-    'AlexvZyl/nordic.nvim',
+    'arcticicestudio/nord-vim',
     lazy = false,
     priority = 1000,
     config = function()
-      require('nordic').load()
-      V.cmd([[colorscheme nordic]])
+      V.cmd([[colorscheme nord]])
     end,
   },
   {
