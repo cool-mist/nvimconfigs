@@ -643,12 +643,6 @@ lazy.setup({
       }
     }
   },
-
-  -- Shows a popups with the keybindings that are available after a small delay
-  {
-    "folke/which-key.nvim",
-    config = true
-  },
 })
 
 ---------------
