@@ -329,10 +329,10 @@ lazy.setup({
   },
 
   -- Copilot!!
-  {
-    "github/copilot.vim",
-    event = { "BufReadPre", "BufNewFile" },
-  },
+  -- {
+  --   "github/copilot.vim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  -- },
 
   -- lspconfig is the configuration framework for the nvim lsp client. It has best effort
   -- configs for every language. Mason.nvim is the plugin that will install the lsp servers
