@@ -343,8 +343,8 @@ lazy.setup({
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require('lspconfig').lua_ls.setup({})
-      require("lspconfig").powershell_es.setup({})
+      V.lsp.enable('lua_ls')
+      V.lsp.enable('powershell_es')
 
       -- The default borders from nvim-lspconfig, which is what is used to configure the lsp servers
       -- in this configuration, are not visible. This is a workaround to update the borders key in the
@@ -369,7 +369,8 @@ lazy.setup({
         ["textDocument/hover"] = V.lsp.with(V.lsp.handlers.hover, { border = border }),
         ["textDocument/signatureHelp"] = V.lsp.with(V.lsp.handlers.signature_help, { border = border }),
       }
-      require("lspconfig").rust_analyzer.setup({ handlers = handlers })
+      V.lsp.config('rust_analyzer', { handlers = handlers })
+      V.lsp.enable('rust_analyzer')
 
       -- C# --
       local omnisharp_extended = require("omnisharp_extended") -- decompilation support
@@ -381,7 +382,7 @@ lazy.setup({
         ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
       }
 
-      require("lspconfig").omnisharp.setup({
+      V.lsp.config('omnisharp', {
         handlers = omnisharp_handlers,
         enable_editorconfig_support = true,
         enable_ms_build_load_projects_on_demand = false,
@@ -391,6 +392,7 @@ lazy.setup({
         sdk_include_prereleases = true,
         analyze_open_documents_only = true,
       })
+      V.lsp.enable('omnisharp')
 
       -- Add default LSP keybindings
       V.api.nvim_create_autocmd('LspAttach', {
